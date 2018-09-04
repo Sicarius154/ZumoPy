@@ -14,7 +14,7 @@ The library is designed to use the serial connection found on the raspberry pi a
 ## Instructions
 The ZumoPy interface works with a limited instruction length, to allow for simplicity and minimal data transfer. Due to the limitations of serial, and ensuring data can be transfered at a reliable rate instructions are kept short and easy to parse. Below is a list of instructions that the Zumo will accept and ackknowledge. Any incorrect instructions are simply **discarded and ignored**.
 Instruction code | Usage
------------------|-------
+-------|-------
 SRxx | will **S** et the **R** ight motor speed to the value of xx * 100. xx Should be a *decimal* **not** an integer. It is assumed an implicit decimal point is placed as so x.x
 SLxx | As above, but will set the **L** eft motor speed.
 G000 | Will request the Zumo send the line sensor data to the Pi
