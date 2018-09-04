@@ -12,6 +12,10 @@ class Zumo32u4:
 
     def _set_right_motor_speed(self, speed):
         instruction = "Instructions.SET_RIGHT_MOTOR_SPEED"
+        speed = f"{speed[0]speed[2]}"#This will grab the value
+        instruction = f"{instruction}{speed}---" #is now of format XXXYY--- where XXX = inst YY = speed --- = unused
+        self.connection.send_instruction(instruction)
+
     def _set_left_motor_speed(self, speed):
         pass
 
@@ -23,7 +27,7 @@ class Zumo32u4:
         """
         speed = float(speed)
         if speed > self.max_speed:
-            self.logger.log_warn("Received speed of {speed} in move_forward. Rounded down to {self.max_speed}")
+            self.logger.log_warn(f"Received speed of {speed} in move_forward. Rounded down to {self.max_speed}")
             speed = self.max_speed
         self._set_left_motor_speed(speed)
         self._set_right_motor_speed(speed)
@@ -35,7 +39,7 @@ class Zumo32u4:
             :param speed: Speed for the zumo, will be taken as a negative value. Expected as a float.
         """
         if speed > self.max_speed:
-            self.logger.log_warn("Received speed of {speed} in move_backward. Rounded down to {self.max_speed}")
+            self.logger.log_warn(f"Received speed of {speed} in move_backward. Rounded down to {self.max_speed}")
             speed = self.max_speed
         self._set_left_motor_speed(-speed)
         self._set_right_motor_speed(-speed)
@@ -46,7 +50,7 @@ class Zumo32u4:
             :param angle: The angle to turn. Taken as an integer between 0 and 360.
         """
         if angle < 0 or angle > 360:
-            self.logger.log_warn("Receieved an angle of {angle} in turn_right. Not valid. Ignoring instruction")
+            self.logger.log_warn(f"Receieved an angle of {angle} in turn_right. Not valid. Ignoring instruction")
         pass
 
     def turn_left(self, angle):
@@ -55,5 +59,5 @@ class Zumo32u4:
             :param angle: The angle to turn. Taken as an integer between 0 and 360.
         """
         if angle < 0 or angle > 360:
-            self.logger.log_warn("Receieved an angle of {angle} in turn_right. Not valid. Ignoring instruction")
+            self.logger.log_warn(f"Receieved an angle of {angle} in turn_right. Not valid. Ignoring instruction")
         pass

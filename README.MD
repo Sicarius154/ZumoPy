@@ -12,13 +12,16 @@ The Pi side is what the user will see. It will contain many high level functions
 The library is designed to use the serial connection found on the raspberry pi and the Zumo. Data transfer is limited to X bits per second.
 
 ## Instructions
-The ZumoPy interface works with a limited instruction length, to allow for simplicity and minimal data transfer. Due to the limitations of serial, and ensuring data can be transfered at a reliable rate instructions are kept short and easy to parse. Below is a list of instructions that the Zumo will accept and ackknowledge. Any incorrect instructions are simply **discarded and ignored**.
-Instruction code | Usage
--------|-------
-SRxx | will **S** et the **R** ight motor speed to the value of xx * 100. xx Should be a *decimal* **not** an integer. It is assumed an implicit decimal point is placed as so x.x
-SLxx | As above, but will set the **L** eft motor speed.
-G000 | Will request the Zumo send the line sensor data to the Pi
-G100 | Will request the Zumo send the proximity sensor data to the Pi
-G110 | Will request the Zumo send the line sensor data, and immediatley after the proximity sensor data to the Pi
+The ZumoPy interface works with a limited instruction length, to allow for simplicity and minimal data transfer. Due to the limitations of serial, and ensuring data can be transfered at a reliable rate instructions are kept short and easy to parse. Below is a list of instructions that the Zumo will accept and ackknowledge. Any incorrect instructions are simply **discarded and ignored**. The '^' character denotes an unused char in the instruction string
+The first character of an instruction denotes the type of instruction:
+0 = Get sensor data (Sending these instructions tell the Zumo to send the most recent sensor data back)
+1 = Set motors (Used for movement and turning)
+|Instruction|Usage                                      |
+|-----------|-------------------------------------------|
+|000^^^^^   |Get the proximity sensor data              |
+|010^^^^^   |Get the line sensor data                   |
+|011^^^^^   |Get both the line and proximity sensor data|
+|100YY^^^   |Set the right motor to speed Y.Y*100       |
+|110YY^^^   |Set the left motor to speed Y.Y*100        |
 
 The Pi will *not* take instructions. It will simply receive data from the sensors. In the future it will also accept status codes. Below is the format for sensor data.
