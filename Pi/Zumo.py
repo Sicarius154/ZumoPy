@@ -1,6 +1,6 @@
 import math
 import random
-from SerialConnection import ZumoConnection
+from .SerialConnection import ZumoConnection
 from util.logging import Logging
 from instructions import Instructions
 class Zumo32u4:
@@ -8,11 +8,12 @@ class Zumo32u4:
         self.name = name
         self.max_speed = 4.0 # This is the maximum speed allowed for the zumo, any values passed that exceed this are rounded down to this value.
         self.logger = Logging(f"./logs/{name}")
+        self.connection = ZumoConnection(self.logger)
         self.logger.log_info("Created Zumo32u4 instance")
 
     def _set_right_motor_speed(self, speed):
         instruction = "Instructions.SET_RIGHT_MOTOR_SPEED"
-        speed = f"{speed[0]speed[2]}"#This will grab the value
+        speed = f"{speed[0]}{speed[2]}"#This will grab the value
         instruction = f"{instruction}{speed}---" #is now of format XXXYY--- where XXX = inst YY = speed --- = unused
         self.connection.send_instruction(instruction)
 
