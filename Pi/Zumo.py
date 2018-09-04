@@ -1,5 +1,4 @@
 import math
-import np
 import random
 from SerialConnection import ZumoConnection
 from util.logging import Logging
