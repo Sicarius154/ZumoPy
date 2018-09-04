@@ -7,6 +7,7 @@ There are two components. The Pi side, and the Zumo side. The Zumo component wil
 The Pi side is what the user will see. It will contain many high level functions to facilitate the controlling of the Zumo. All error checking, data validation and so forth is done here. With minimal logic required on the Zumo
 
 #Instructions and communication
+
 ##Communication
 The library is designed to use the serial connection found on the raspberry pi and the Zumo. Data transfer is limited to X bits per second.
 
