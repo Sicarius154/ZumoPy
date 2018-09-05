@@ -13,8 +13,8 @@ class Zumo32u4:
 
     def _set_right_motor_speed(self, speed):
         instruction = "Instructions.SET_RIGHT_MOTOR_SPEED"
-        speed = f"{speed[0]}{speed[2]}"#This will grab the value
-        instruction = f"{instruction}{speed}---" #is now of format XXXYY--- where XXX = inst YY = speed --- = unused
+        speed = f"{speed[0]}{speed[2]};"#This will grab the value
+        instruction = f"{instruction}{speed};" #is now of format XXXYY--- where XXX = inst YY = speed --- = unused
         self.connection.send_instruction(instruction)
 
     def _set_left_motor_speed(self, speed):
