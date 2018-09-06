@@ -1,9 +1,9 @@
 import serial
 from exceptions.InvalidInstruction import InvalidInstruction
 class ZumoConnection:
-    def __init__(self, logger):
+    def __init__(self, logger, port):
         self.logger = logger
-        self.connection = serial.Serial("/dev/tty/ACM0", 9600)
+        self.connection = serial.Serial(port, 9600)
         self.logger.log_info("Created Serial Connection to Zumo")
 
     def send_instruction(self, inst):
@@ -11,8 +11,10 @@ class ZumoConnection:
             Sends an instruction to the Zumo over a serial connection
             :param ins: The 8-char long instruction.
         """
-
         self.logger.log_info(f"Received instruction {inst}")
+        data = get_bytes(inst)
+        self._send(data)
+
 
     def connect(self):
         pass
@@ -47,7 +49,6 @@ class ZumoConnection:
             Send data across the serial connection
             :param data: The data to send
         """
-        data = get_bytes(data)
         size = None #TODO: get size of inst
         self.connection.write(data)
         self.logger.log_info("Sent {size} bytes of data")
