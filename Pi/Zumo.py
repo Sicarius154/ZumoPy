@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import math
 import random
 from SerialConnection import ZumoConnection
@@ -6,19 +7,30 @@ from instructions import Instructions
 class Zumo32u4:
     def __init_(self, name="Zumo32u4", port="/dev/tty/ACM0"):
         self.name = name
-        self.max_speed = 4.0 # This is the maximum speed allowed for the zumo, any values passed that exceed this are rounded down to this value.
+        self.max_speed = 100 # This is the maximum speed allowed for the zumo. It works as a percentage
         self.logger = Logging(f"./logs/{name}")
         self.connection = ZumoConnection(self.logger, port)
         self.logger.log_info("Created Zumo32u4 instance")
 
     def _set_right_motor_speed(self, speed):
+        """
+            Sets the speed of the right motor
+            :param speed: The speed for the motor. Between 0 and 100. Acts as a percentage
+        """
         instruction = "Instructions.SET_RIGHT_MOTOR_SPEED"
-        speed = f"{speed[0]}{speed[2]};"#This will grab the value
-        instruction = f"{instruction}{speed};" #is now of format XXXYY--- where XXX = inst YY = speed --- = unused
+        speed = f"{speed};"#This will grab the value
+        instruction = f"{instruction}{speed};"
         self.connection.send_instruction(instruction)
 
     def _set_left_motor_speed(self, speed):
-        pass
+        """
+            Sets the speed of the left motor
+            :param speed: The speed for the motor. Between 0 and 100. Acts as a percentage
+        """
+        instruction = "Instructions.SET_LEFT_MOTOR_SPEED"
+        speed = f"{speed};"#This will grab the value
+        instruction = f"{instruction}{speed};"
+        self.connection.send_instruction(instruction)
 
     def move_forward(self, speed):
         """
@@ -45,19 +57,20 @@ class Zumo32u4:
         self._set_left_motor_speed(-speed)
         self._set_right_motor_speed(-speed)
 
-    def turn_right(self, angle):
+    def turn_right(self, angle, speed):
         """
             Will make the zumo rotate to the right by moving only the right motor.
             :param angle: The angle to turn. Taken as an integer between 0 and 360.
+            :param speed: How fast the turn should be completed. Between 0 and 100.
         """
         if angle < 0 or angle > 360:
             self.logger.log_warn(f"Receieved an angle of {angle} in turn_right. Not valid. Ignoring instruction")
-        pass
 
-    def turn_left(self, angle):
+    def turn_left(self, angle, speed):
         """
             Will make the zumo rotate to the left by moving only the left motor.
             :param angle: The angle to turn. Taken as an integer between 0 and 360.
+            :param speed: How fast the turn should be completed. Between 0 and 100.
         """
         if angle < 0 or angle > 360:
             self.logger.log_warn(f"Receieved an angle of {angle} in turn_right. Not valid. Ignoring instruction")

@@ -1,6 +1,15 @@
+"""
+    This file contains the list of instruction codes to be used.
+    Information on how instructions work can be found in the docs
+"""
+
 class Instructions(Enum):
-    SET_LEFT_MOTOR_SPEED = 100
-    SET_RIGHT_MOTOR_SPEED = 110
-    GET_LINE_SENSORS = 010
-    GET_PROXIMITY_SENSORS = 000
-    GET_BOTH_SENSORS = 011
+    CONNECT = "C"
+    DISCONNECT = "D"
+    SET_LEFT_MOTOR_SPEED = "SL"
+    SET_RIGHT_MOTOR_SPEED = "SR"
+    SET_TURN_RIGHT = "TR"
+    SET_TURN_LEFT = "TL"
+    GET_LINE_SENSORS = "GL"
+    GET_PROXIMITY_SENSORS = "GP"
+    GET_BOTH_SENSORS = "GB"
