@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 import math
 import random
-from SerialConnection import ZumoConnection
+from serialconnection import ZumoConnection
 from util.logging import Logging
 from instructions import Instructions
+from zumosensors import ZumoSensors
 class Zumo32u4:
     def __init_(self, name="Zumo32u4", port="/dev/tty/ACM0"):
         self.name = name
@@ -11,6 +12,7 @@ class Zumo32u4:
         self.logger = Logging(f"./logs/{name}")
         self.connection = ZumoConnection(self.logger, port)
         self.logger.log_info("Created Zumo32u4 instance")
+        self.sensors = ZumoSensors()
 
     def _set_right_motor_speed(self, speed):
         """
